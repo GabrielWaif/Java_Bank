@@ -11,19 +11,20 @@ public class Client extends BankAccount{
         if(value <= 0) System.out.println("Cannot deposit a value that is less or equal to 0");
         else {
             this.balance += value;
-            System.out.println("Value of " + value + " deposited by " + depositorName);
             BankStatement buffer = new BankStatement(1, depositorName, this.fullName, value);
             bankStatements.add(buffer);
             bank.addBankStatement(buffer);
         }
     }
 
-    public void transfer(double value, Client reciver){
+    public void transfer(double value,int reciverId){
         if(value <= 0) System.out.println("Cannot transfer a value that is less or equal to 0");
         else {
+            Client reciver = bank.find(reciverId);
             this.balance -= value;
             System.out.println("Value of " + value + " transfered to " + reciver.getFullName());
             BankStatement buffer = new BankStatement(2, this.fullName, reciver.fullName, value);
+            reciver.deposit(value, reciver.getFullName());
             bankStatements.add(buffer);
             bank.addBankStatement(buffer);
         }

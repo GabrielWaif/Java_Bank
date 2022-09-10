@@ -13,18 +13,18 @@ public class App {
     bank.addProfile("Gabriel", "123");
     Client profile = bank.getAccount();
     profile.deposit(100, "transporte");
-    bank.addProfile("Teste", "123");
     int choice = 0;
+    System.out.println(profile.getId());
 
     do {
       do {
         System.out.print(
-          "-\n1 - Login as admin\n2 - Sign up\n3 - Sign in\n4 - Quit\n-\nOption: "
+          "-\n1 - Login as admin\n2 - Sign up\n3 - Sign in\n4 - Make a deposit\n5 - Quit\n-\nOption: "
         );
         choice = scan.nextInt();
         scan.nextLine();
         System.out.println("-");
-      } while (choice < 1 || choice > 4);
+      } while (choice < 1 || choice > 5);
       switch (choice) {
         case 1:
           admLogin();
@@ -36,10 +36,13 @@ public class App {
           userLogin();
           break;
         case 4:
+         deposit();
+        break;
+        case 5:
           System.out.println("Quiiting...");
           break;
       }
-    } while (choice != 4);
+    } while (choice != 5);
   }
 
   public static void admLogin() {
@@ -93,6 +96,7 @@ public class App {
     do {
       System.out.print("Password: ");
       bufferPassword = scan.nextLine();
+      scan.nextLine();
       loggedClient = bank.loginCheck(bufferId, bufferPassword);
       if (loggedClient == null) System.out.println(
         "Invalid password, try again!"
@@ -122,12 +126,23 @@ public class App {
           double value;
           int id;
           do {
-            System.out.print("\nTransferir\nId que ira receber: ");
+            System.out.print("\nTransfer\nReceptor Id: ");
             id = scan.nextInt();
             if (!IdCreator.contains(id)) System.out.println(
               "Non existing Id, try again!"
             );
-          } while (false);
+          } while (!IdCreator.contains(id));
+
+          do {
+            System.out.print("Value: ");
+            value = scan.nextDouble();
+            if (loggedClient.getBalance() < value) System.out.println(
+              "Not enough money to make that transition, choose a higher ammount!"
+            );
+          } while (loggedClient.getBalance() < value);
+
+          loggedClient.transfer(value, id);
+
           break;
         case 2:
           loggedClient.getBankStatement();
@@ -144,10 +159,34 @@ public class App {
     System.out.print("Sign up.\nFull name: ");
     String fullName = scan.nextLine();
 
-    System.out.print("\nSenha: ");
+    System.out.print("\nPassword: ");
     String bufferPassword = scan.nextLine();
 
     int bufferID = bank.addProfile(fullName, bufferPassword);
     System.out.println("Signed up Your login Id is " + bufferID + "...");
+  }
+
+  public static void deposit(){
+          double value;
+          int id;
+          do {
+            System.out.print("\nDeposit\nReceptor Id: ");
+            id = scan.nextInt();
+            if (!IdCreator.contains(id)) System.out.println(
+              "Non existing Id, try again!"
+            );
+          } while (!IdCreator.contains(id));
+          do {
+            System.out.print("Value: ");
+            value = scan.nextDouble();
+            scan.nextLine();
+            if (value <= 0) System.out.println(
+              "Value too low for a Deposit, pick a higher value"
+            );
+          } while (value <= 0);
+          System.out.print("Identify yourself: ");
+          String depositorName = scan.nextLine();
+          bank.makeDeposit(id, value, depositorName);
+          System.out.println("Value of " + value + " deposited by " + depositorName);
   }
 }

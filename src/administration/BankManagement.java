@@ -29,6 +29,7 @@ public class BankManagement{
             if(this.profiles.size() == 0) System.out.println("0 Accounts opened");
             else{
                 for(Client c : this.profiles){
+                    totalBalance += c.getBalance();
                 System.out.println("-");
                     System.out.println(c.toString());
                 };
@@ -57,6 +58,15 @@ public class BankManagement{
         return null;
     }
 
+    public Client find(int id){
+        for(Client c : this.profiles){
+            if(c.getId() == id){
+                return c;
+            }
+        }
+        return null;
+    }
+
     public Client getAccount(){
         return profiles.get(0);
     }
@@ -69,4 +79,8 @@ public class BankManagement{
         return password.equals(this.adminPassword);
     }
 
+    public void makeDeposit(int id, double value, String depositorName){
+        Client receiver = find(id);
+        receiver.deposit(value, depositorName);
+    }
 }

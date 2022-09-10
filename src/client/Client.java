@@ -37,4 +37,8 @@ public class Client extends BankAccount{
     public String toString(){
         return "-\nName: " + this.fullName + "\nBalance: " + this.balance;
     }
+    
+    public boolean validPass(String password){
+        return password.equals(this.password);
+    }
 }

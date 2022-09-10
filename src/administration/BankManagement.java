@@ -17,9 +17,10 @@ public class BankManagement{
         return instance;
     }
 
-    public void addProfile(String fullName, String password){
+    public int addProfile(String fullName, String password){
         Client client = new Client(fullName, password);
         profiles.add(client);
+        return client.getId();
     }
 
     public void getProfiles(String password){
@@ -45,6 +46,15 @@ public class BankManagement{
             }
         }
         } 
+    }
+
+    public Client loginCheck(int id, String password){
+        for(Client c : this.profiles){
+            if(c.getId() == id && c.validPass(password)){
+                return c;
+            }
+        }
+        return null;
     }
 
     public Client getAccount(){

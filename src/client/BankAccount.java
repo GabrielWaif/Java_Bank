@@ -1,7 +1,5 @@
 package client;
-
 import java.util.ArrayList;
-
 import administration.BankManagement;
 import administration.BankStatement;
 
@@ -9,7 +7,6 @@ public class BankAccount {
     protected int id;
     protected double balance;
     protected String fullName;
-    protected String extract;
     protected String password;
     protected ArrayList<BankStatement> bankStatements = new ArrayList<BankStatement>();
     BankManagement bank = BankManagement.getInstance();
@@ -18,6 +15,7 @@ public class BankAccount {
         this.balance = 0;
         this.fullName = fullname;
         this.password = password;
+        this.id = IdCreator.createNewId();
     }
 
     public int getId() {

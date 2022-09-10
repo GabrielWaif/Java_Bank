@@ -10,12 +10,7 @@ public class App {
   private static String Password;
 
   public static void main(String[] args) throws Exception {
-    bank.addProfile("Gabriel", "123");
-    Client profile = bank.getAccount();
-    profile.deposit(100, "transporte");
     int choice = 0;
-    System.out.println(profile.getId());
-
     do {
       do {
         System.out.print(
@@ -36,8 +31,8 @@ public class App {
           userLogin();
           break;
         case 4:
-         deposit();
-        break;
+          deposit();
+          break;
         case 5:
           System.out.println("Quiiting...");
           break;
@@ -82,6 +77,7 @@ public class App {
     do {
       System.out.print("Login in as user.\nId(Type 4 to leave): ");
       bufferId = scan.nextInt();
+      scan.nextLine();
       if (!IdCreator.contains(bufferId)) System.out.println(
         "Invalid Id, try again!"
       ); else if (bufferId == 4) {
@@ -96,7 +92,6 @@ public class App {
     do {
       System.out.print("Password: ");
       bufferPassword = scan.nextLine();
-      scan.nextLine();
       loggedClient = bank.loginCheck(bufferId, bufferPassword);
       if (loggedClient == null) System.out.println(
         "Invalid password, try again!"
@@ -166,27 +161,27 @@ public class App {
     System.out.println("Signed up Your login Id is " + bufferID + "...");
   }
 
-  public static void deposit(){
-          double value;
-          int id;
-          do {
-            System.out.print("\nDeposit\nReceptor Id: ");
-            id = scan.nextInt();
-            if (!IdCreator.contains(id)) System.out.println(
-              "Non existing Id, try again!"
-            );
-          } while (!IdCreator.contains(id));
-          do {
-            System.out.print("Value: ");
-            value = scan.nextDouble();
-            scan.nextLine();
-            if (value <= 0) System.out.println(
-              "Value too low for a Deposit, pick a higher value"
-            );
-          } while (value <= 0);
-          System.out.print("Identify yourself: ");
-          String depositorName = scan.nextLine();
-          bank.makeDeposit(id, value, depositorName);
-          System.out.println("Value of " + value + " deposited by " + depositorName);
+  public static void deposit() {
+    double value;
+    int id;
+    do {
+      System.out.print("\nDeposit\nReceptor Id: ");
+      id = scan.nextInt();
+      if (!IdCreator.contains(id)) System.out.println(
+        "Non existing Id, try again!"
+      );
+    } while (!IdCreator.contains(id));
+    do {
+      System.out.print("Value: ");
+      value = scan.nextDouble();
+      scan.nextLine();
+      if (value <= 0) System.out.println(
+        "Value too low for a Deposit, pick a higher value"
+      );
+    } while (value <= 0);
+    System.out.print("Identify yourself: ");
+    String depositorName = scan.nextLine();
+    bank.makeDeposit(id, value, depositorName);
+    System.out.println("Value of " + value + " deposited by " + depositorName);
   }
 }

@@ -1,86 +1,90 @@
 package administration;
-import java.util.ArrayList;
+
 import client.Client;
+import java.util.ArrayList;
 
-public class BankManagement{
-    private static BankManagement instance;
-    private String adminPassword;
-    private ArrayList<Client> profiles = new ArrayList<Client>();
-    private ArrayList<BankStatement> bankStatement = new ArrayList<BankStatement>();
+public class BankManagement {
 
-    public BankManagement(){
-        this.adminPassword = "admin";
-    }
+  private static BankManagement instance;
+  private String adminPassword;
+  private ArrayList<Client> profiles = new ArrayList<Client>();
+  private ArrayList<BankStatement> bankStatement = new ArrayList<BankStatement>();
 
-    public static BankManagement getInstance() {
-        if(instance == null) instance = new BankManagement();
-        return instance;
-    }
+  public BankManagement() {
+    this.adminPassword = "admin";
+  }
 
-    public int addProfile(String fullName, String password){
-        Client client = new Client(fullName, password);
-        profiles.add(client);
-        return client.getId();
-    }
+  public static BankManagement getInstance() {
+    if (instance == null) instance = new BankManagement();
+    return instance;
+  }
 
-    public void getProfiles(String password){
-        if(password.equals(this.adminPassword)) {
-        double totalBalance = 0;
-            if(this.profiles.size() == 0) System.out.println("0 Accounts opened");
-            else{
-                for(Client c : this.profiles){
-                    totalBalance += c.getBalance();
-                System.out.println("-");
-                    System.out.println(c.toString());
-                };
-            }
-            System.out.println("-\nTotal Balance: " + totalBalance);
-        } 
-    }
-    
-    public void getBankStatement(String password){
-        if(password.equals(this.adminPassword)) {
-            if(this.profiles.size() == 0) System.out.println("0 Accounts opened");
-            else {
-                for(BankStatement bs : this.bankStatement){
-                System.out.println(bs.toString());
-            }
+  public int addProfile(String fullName, String password) {
+    Client client = new Client(fullName, password);
+    profiles.add(client);
+    return client.getId();
+  }
+
+  public void getProfiles(String password) {
+    if (password.equals(this.adminPassword)) {
+      double totalBalance = 0;
+      if (this.profiles.size() == 0) System.out.println(
+        "0 Accounts opened"
+      ); else {
+        for (Client c : this.profiles) {
+          totalBalance += c.getBalance();
+          System.out.println("-");
+          System.out.println(c.toString());
         }
-        } 
+      }
+      System.out.println("-\nTotal Balance: " + totalBalance);
     }
+  }
 
-    public Client loginCheck(int id, String password){
-        for(Client c : this.profiles){
-            if(c.getId() == id && c.validPass(password)){
-                return c;
-            }
+  public void getBankStatement(String password) {
+    if (password.equals(this.adminPassword)) {
+      if (this.profiles.size() == 0) System.out.println(
+        "0 Accounts opened"
+      ); else {
+        for (BankStatement bs : this.bankStatement) {
+          System.out.println(bs.toString());
         }
-        return null;
+      }
     }
+  }
 
-    public Client find(int id){
-        for(Client c : this.profiles){
-            if(c.getId() == id){
-                return c;
-            }
-        }
-        return null;
+  public Client loginCheck(int id, String password) {
+    for (Client c : this.profiles) {
+      if (c.getId() == id && c.validPass(password)) {
+        return c;
+      }
     }
+    return null;
+  }
 
-    public Client getAccount(){
-        return profiles.get(0);
+  public Client find(int id) {
+    for (Client c : this.profiles) {
+      if (c.getId() == id) {
+        return c;
+      }
     }
+    return null;
+  }
 
-    public void addBankStatement(BankStatement statement){
-        bankStatement.add(statement);
-    }
+  public Client getAccount() {
+    return profiles.get(0);
+  }
 
-    public boolean validPass(String password){
-        return password.equals(this.adminPassword);
-    }
+  public void addBankStatement(BankStatement statement) {
+    bankStatement.add(statement);
+  }
 
-    public void makeDeposit(int id, double value, String depositorName){
-        Client receiver = find(id);
-        receiver.deposit(value, depositorName);
-    }
+  public boolean validPass(String password) {
+    return password.equals(this.adminPassword);
+  }
+
+  public void makeDeposit(int id, double value, String depositorName) {
+    Client receiver = find(id);
+    receiver.deposit(value, depositorName);
+  }
 }

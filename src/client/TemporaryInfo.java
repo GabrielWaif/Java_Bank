@@ -1,8 +1,11 @@
+package client;
+import administration.BankManagement;
+
 public class TemporaryInfo extends BankAccount{
-    private MasterAccount adm = new MasterAccount();
+    private BankManagement adm = new BankManagement();
 
     TemporaryInfo(int id, double balance, String fullName){
-        super(balance, fullName);
+        super(fullName);
     }
 
     public void sendProfile(){

@@ -1,15 +1,19 @@
+package client;
+
+import java.util.ArrayList;
+
+import administration.BankStatement;
+
 public class BankAccount {
     protected int id;
     protected double balance;
     protected String fullName;
     protected String extract;
+    protected ArrayList<BankStatement> bankStatements = new ArrayList<BankStatement>();
 
-    BankAccount(double balance, String fullname){
-        this.balance = balance;
+    BankAccount(String fullname){
+        this.balance = 0;
         this.fullName = fullname;
-    }
-
-    BankAccount(){
     }
 
     public int getId() {

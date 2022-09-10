@@ -2,9 +2,9 @@
 
 ## Introduction
 
-Small college Java project for subject: object-oriented programing.
+Small college object-oriented programing Java project.
 
-In this project, I explored using: Generic collections, singleton patterns, observer patterns, inheritance, etc.
+In this project I explored using: Generic collections, singleton patterns, observer patterns, inheritance, etc.
 
 
 ## Check out the code

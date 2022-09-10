@@ -14,6 +14,7 @@ public class Client extends BankAccount{
             System.out.println("Value of " + value + " deposited by " + depositorName);
             BankStatement buffer = new BankStatement(1, depositorName, this.fullName, value);
             bankStatements.add(buffer);
+            bank.addBankStatement(buffer);
         }
     }
 
@@ -24,6 +25,7 @@ public class Client extends BankAccount{
             System.out.println("Value of " + value + " transfered to " + reciver.getFullName());
             BankStatement buffer = new BankStatement(2, this.fullName, reciver.fullName, value);
             bankStatements.add(buffer);
+            bank.addBankStatement(buffer);
         }
     }
     public void getBankStatement(){
@@ -31,5 +33,8 @@ public class Client extends BankAccount{
         for(BankStatement c : this.bankStatements){
                 System.out.println(c.toString());
             };
+    }
+    public String toString(){
+        return "-\nNome: " + this.fullName + "\nBalance: " + this.balance;
     }
 }

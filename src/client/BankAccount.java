@@ -2,6 +2,7 @@ package client;
 
 import java.util.ArrayList;
 
+import administration.BankManagement;
 import administration.BankStatement;
 
 public class BankAccount {
@@ -10,6 +11,7 @@ public class BankAccount {
     protected String fullName;
     protected String extract;
     protected ArrayList<BankStatement> bankStatements = new ArrayList<BankStatement>();
+    BankManagement bank = BankManagement.getInstance();
 
     BankAccount(String fullname){
         this.balance = 0;

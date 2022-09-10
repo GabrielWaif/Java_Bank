@@ -24,6 +24,6 @@ public class BankStatement implements IBank{
     }
 
     public String toString(){
-        return "-\n" + this.type + "\nDepositor: " + this.depositorName + "\nReciver: " + this.reciverName + "\nAt: " + this.date + "\nAmmount: " + this.ammount;
+        return "-\nType: " + this.type + "\nDepositor: " + this.depositorName + "\nReciver: " + this.reciverName + "\nAt: " + this.date + "\nAmmount: " + this.ammount;
     }
 }

@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import administration.BankManagement;
+import client.Client;
 
 public class App {
     private static Scanner scan = new Scanner(System.in);
@@ -12,6 +13,12 @@ public class App {
         //Client cliente2 = new Client("Lucas");
         //cliente.transfer(100, cliente2);
         //cliente.getBankStatement();
+
+        bank.addProfile("Gabriel");
+        Client profile  = bank.getAccount();
+        profile.deposit(100, "transporte");
+
+        bank.addProfile("Teste");
 
         int escolha = 0;
 
@@ -48,7 +55,7 @@ public class App {
             System.out.println("Logado como admin...");
          do{
             do{
-                System.out.println("-\n1 - Ver balanca das contas\n2 - Ver extrato geral\n4 - Sair\n-\nEscolha: ");
+                System.out.print("-\n1 - Ver balanca das contas\n2 - Ver extrato geral\n4 - Sair\n-\nEscolha: ");
                 escolha = scan.nextInt();
             }while(escolha < 1 || escolha > 4);
             switch(escolha){
@@ -56,6 +63,7 @@ public class App {
                 bank.getProfiles(bufferSenha);
                 break;
                 case 2:
+                bank.getBankStatement(bufferSenha);
                 break;
                 case 4:
                     System.out.println("Deslogado como admin...");

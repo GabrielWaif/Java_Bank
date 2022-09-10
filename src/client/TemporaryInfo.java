@@ -9,6 +9,6 @@ public class TemporaryInfo extends BankAccount{
     }
 
     public void sendProfile(){
-        this.adm.addProfile(this.balance, this.fullName);
+        this.adm.addProfile(this.fullName);
     };
 }

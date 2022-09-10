@@ -10,12 +10,14 @@ public class BankAccount {
     protected double balance;
     protected String fullName;
     protected String extract;
+    protected String password;
     protected ArrayList<BankStatement> bankStatements = new ArrayList<BankStatement>();
     BankManagement bank = BankManagement.getInstance();
 
-    BankAccount(String fullname){
+    BankAccount(String fullname, String password){
         this.balance = 0;
         this.fullName = fullname;
+        this.password = password;
     }
 
     public int getId() {

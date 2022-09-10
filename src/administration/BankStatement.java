@@ -1,7 +1,7 @@
 package administration;
 import java.util.Date;
 
-public class BankStatement implements IBank{
+public class BankStatement{
     private String type;
     private String depositorName; 
     private String reciverName; 

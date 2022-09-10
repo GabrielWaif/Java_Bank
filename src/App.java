@@ -1,76 +1,85 @@
-import java.util.Scanner;
 import administration.BankManagement;
 import client.Client;
+import java.util.Scanner;
 
 public class App {
-    private static Scanner scan = new Scanner(System.in);
-    private static BankManagement bank = BankManagement.getInstance();
-    private static String bufferSenha;
-    public static void main(String[] args) throws Exception {
-        //Client cliente = new Client("Gabriel");
-        //cliente.deposit(100, "teste");
-        //cliente.deposit(20, "teste2");
-        //Client cliente2 = new Client("Lucas");
-        //cliente.transfer(100, cliente2);
-        //cliente.getBankStatement();
 
-        bank.addProfile("Gabriel");
-        Client profile  = bank.getAccount();
-        profile.deposit(100, "transporte");
+  private static Scanner scan = new Scanner(System.in);
+  private static BankManagement bank = BankManagement.getInstance();
+  private static String Password;
 
-        bank.addProfile("Teste");
+  public static void main(String[] args) throws Exception {
+    bank.addProfile("Gabriel", "123");
+    Client profile = bank.getAccount();
+    profile.deposit(100, "transporte");
+    bank.addProfile("Teste", "123");
+    int choice = 0;
 
-        int escolha = 0;
+    do {
 
-        do{
-            System.out.println("fora");
-            do{
-                System.out.print("-\n1 - Entrar como adimin\n2 - Iniciar conta\n3 - Entrar em conta\n4 - Sair\n-\nEscolha: ");
-                escolha = scan.nextInt();
-                System.out.println("-");
-            }while(escolha < 1 || escolha > 4);
-            switch(escolha){
-                case 1:
-                admLogin();
-                break;
-                case 2:
-                break;
-                case 3:
-                break;
-                case 4:
-                    System.out.println("Saindo...");
-                break;
-            }
-        }
-        while(escolha!=4);
+      do {
+        System.out.print(
+          "-\n1 - Login as admin\n2 - Sign up\n3 - Sign in\n4 - Quit\n-\nOption: "
+        );
+        choice = scan.nextInt();
+        System.out.println("-");
+      } while (choice < 1 || choice > 4);
+      switch (choice) {
+        case 1:
+          admLogin();
+          break;
+        case 2:
+        signUp();
+          break;
+        case 3:
+          break;
+        case 4:
+          System.out.println("Quiiting...");
+          break;
+      }
+    } while (choice != 4);
+  }
+
+  public static void admLogin() {
+    do {
+      System.out.print("Login in as admin.\nPassword: ");
+      Password = scan.next();
+      if (!bank.validPass(Password)) System.out.println(
+        "Invalid Password, try again!"
+      );
+    } while (!bank.validPass(Password));
+    int choice = 0;
+    System.out.println("Sigined in...");
+    do{
+      do {
+        System.out.print(
+          "-\n1 - View balance of every account\n2 - View all bank statements\n4 - Quit\n-\nChoice: "
+        );
+        choice = scan.nextInt();
+      } while (choice < 1 || choice > 4);
+      switch (choice) {
+        case 1:
+          bank.getProfiles(Password);
+          break;
+        case 2:
+          bank.getBankStatement(Password);
+          break;
+        case 4:
+          System.out.println("Signing out...");
+          Password = "";
+          break;
+      }
     }
+    while (choice != 4);
+  }
 
-    public static void admLogin(){
-            do{
-                System.out.print("Entre como administrador.\nSenha: ");
-                bufferSenha = scan.next();
-                if(!bank.validPass(bufferSenha)) System.out.println("Senha invalida tente novamente!");
-            }while(!bank.validPass(bufferSenha));
-            int escolha = 0;
-            System.out.println("Logado como admin...");
-         do{
-            do{
-                System.out.print("-\n1 - Ver balanca das contas\n2 - Ver extrato geral\n4 - Sair\n-\nEscolha: ");
-                escolha = scan.nextInt();
-            }while(escolha < 1 || escolha > 4);
-            switch(escolha){
-                case 1:
-                bank.getProfiles(bufferSenha);
-                break;
-                case 2:
-                bank.getBankStatement(bufferSenha);
-                break;
-                case 4:
-                    System.out.println("Deslogado como admin...");
-                    bufferSenha = "";
-                break;
-            }
-        }
-        while(escolha!=4);
-    }
+  public static void signUp() {
+
+      System.out.print("Sign up.\nFull name: ");
+      String fullName = scan.next();
+      System.out.print("\nSenha: ");
+      String bufferPassword = scan.next();
+      bank.addProfile(fullName, bufferPassword);
+      System.out.println("Signed up...");
+  }
 }

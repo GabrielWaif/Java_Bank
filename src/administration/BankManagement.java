@@ -17,8 +17,8 @@ public class BankManagement{
         return instance;
     }
 
-    public void addProfile(String fullName){
-        Client client = new Client(fullName);
+    public void addProfile(String fullName, String password){
+        Client client = new Client(fullName, password);
         profiles.add(client);
     }
 

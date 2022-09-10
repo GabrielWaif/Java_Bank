@@ -3,8 +3,8 @@ package client;
 import administration.BankStatement;
 
 public class Client extends BankAccount{
-    public Client(String fullName){
-        super(fullName);
+    public Client(String fullName, String password){
+        super(fullName, password);
     }
 
     public void deposit(double value, String depositorName){
@@ -35,6 +35,6 @@ public class Client extends BankAccount{
             };
     }
     public String toString(){
-        return "-\nNome: " + this.fullName + "\nBalance: " + this.balance;
+        return "-\nName: " + this.fullName + "\nBalance: " + this.balance;
     }
 }
